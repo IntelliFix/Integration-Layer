@@ -21,5 +21,3 @@ steps:
       - "gcr.io/$PROJECT_ID/intellifix-integration:$SHORT_SHA"
       - "--platform"
       - "managed"
-      - "--region"
-      - "europe-west2"
