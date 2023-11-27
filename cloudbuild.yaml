@@ -4,7 +4,7 @@ steps:
     args:
       - "-c"
       - |
-        gcloud secrets versions access latest --secret=intellifix-dotenv > /projects/800972570572/secrets/intellifix-dotenv
+        gcloud secrets versions access latest --secret=intellifix-dotenv > /workspace/.env
 
   - name: "gcr.io/cloud-builders/docker"
     args: ["build", "-t", "gcr.io/$PROJECT_ID/ai:$SHORT_SHA", "."]
