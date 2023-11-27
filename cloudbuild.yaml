@@ -31,4 +31,4 @@ steps:
       - "--platform"
       - "managed"
       - "--region"
-      - "us"
+      - "global"
