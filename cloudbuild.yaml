@@ -1,12 +1,22 @@
 steps:
-  - name: "gcr.io/cloud-builders/gcloud"
+  # Create the Cloud Run service
+  - name: "Create Cloud Run service"
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        gcloud run services create intellifix-integration
+
+  # Retrieve .env file from Secrets Manager
+  - name: "Retrieve .env file"
     entrypoint: "bash"
     args:
       - "-c"
       - |
         gcloud secrets versions access latest --secret=intellifix-dotenv > /workspace/.env
 
-  - name: "gcr.io/cloud-builders/docker"
+  # Build Docker image
+  - name: "Build Docker image"
     entrypoint: "bash"
     args:
       - "-c"
@@ -18,10 +28,12 @@ steps:
           --platform=linux/amd64 \
           .
 
-  - name: "gcr.io/cloud-builders/docker"
+  # Push Docker image
+  - name: "Push Docker image"
     args: ["push", "gcr.io/$PROJECT_ID/intellifix-integration:$SHORT_SHA"]
 
-  - name: "gcr.io/cloud-builders/gcloud"
+  # Deploy to Cloud Run
+  - name: "Deploy to Cloud Run"
     args:
       - "run"
       - "deploy"
