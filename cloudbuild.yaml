@@ -18,7 +18,7 @@ steps:
       - "deploy"
       - "intellifix-integration"
       - "--image"
-      - "gcr.io/$PROJECT_ID/ai:$SHORT_SHA"
+      - "gcr.io/$PROJECT_ID/intellifix-integration:$SHORT_SHA"
       - "--platform"
       - "managed"
       - "--region"
