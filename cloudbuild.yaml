@@ -31,6 +31,6 @@ steps:
       - "--platform"
       - "managed"
       - "--region"
-      - "global"
+      - "us-central1"
 options:
   logging: CLOUD_LOGGING_ONLY
