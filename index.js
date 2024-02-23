@@ -6,13 +6,8 @@ const router = require("./src/routes/index.routes"); // used to handle routes
 
 const app = express();
 // app.use(cors({ origin: "http://localhost:3000" }));
-<<<<<<< HEAD
-const PORT = process.env.PORT || 5000;
-
-
-=======
 const PORT = 8080;
->>>>>>> 9b25fffcfd5f0d29f1ce7bb527164e4d78008977
+
 app.use(express.json({ limit: "50mb" }));
 app.use(router);
 
