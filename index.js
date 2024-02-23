@@ -5,6 +5,8 @@ const mongoose = require("mongoose");
 const router = require("./src/routes/index.routes"); // used to handle routes
 
 const app = express();
+
+// CORS Policy origin should be Gen AI server url, and deployed frontend url ONLY!
 // app.use(cors({ origin: "http://localhost:3000" }));
 const PORT = 8080;
 app.use(express.json({ limit: "50mb" }));
