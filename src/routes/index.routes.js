@@ -25,6 +25,6 @@ router.post("/login", authController.login_post);
 router.post("/code-fixer", requireAuth, codeFixer);
 router.post("/chatbot", requireAuth, chatbot);
 
-router.get('/logout', authController.logout_get);
+router.get('/logout', requireAuth, authController.logout_get);
 
 module.exports = router;
