@@ -1,0 +1,81 @@
+
+
+<form>
+    <h2>Sign up</h2>
+
+    <label for="email">Email</label>
+    <input type="text" name="email" required />
+    <div class = "email error"></div>
+
+    <label for="password">Password</label>
+    <input type="password" name="password" required />
+    <div class = "password error"></div>
+
+    <label for="name">Name</label>
+    <input type="text" name="name" required />
+    <div class = "name error"></div>
+
+    <label for="phoneNumber">PhoneNumber</label>
+    <input type="text" name="phoneNumber" required />
+    <div class = "phoneNumber error"></div>
+
+    <button> Sign Up </button>
+
+</form>
+
+
+<script>
+    const form = document.querySelector('form');
+    const emailError = document.querySelector('.email.error');
+    const passwordError = document.querySelector('.password.error');
+    const nameError = document.querySelector('.name.error');
+    const phoneNumberError = document.querySelector('.phoneNumber.error');
+
+
+    form.addEventListener('submit', async (e) => {
+
+        //Prevent default refresh that happens after form is submitted, I want the user to be taken to the 
+        //next page in the pipeline, and that will be the "Check your email for authentication code" page
+        e.preventDefault(); 
+
+
+        //reset errors everytime user enters a valid input
+        emailError.textContent = '';
+        passwordError.textContent = '';
+        nameError.textContent = '';
+        phoneNumberError.textContent = '';
+
+
+        const email = form.email.value;
+        const password = form.password.value;
+        const name = form.name.value;
+        const phoneNumber = form.phoneNumber.value;
+
+        //the following is important to call the signup_post function to create a new user in the database 
+        try{
+            const res = await fetch( '/signup', {
+                method: 'POST',
+                body: JSON.stringify({email, password, name, phoneNumber}),
+                headers: {'Content-Type': 'application/json'}
+            });
+            const data = await res.json();
+            console.log(data);
+            
+            if(data.errors) {
+                emailError.textContent = data.errors.email;
+                passwordError.textContent = data.errors.password;
+                nameError.textContent = data.errors.name;
+                phoneNumberError.textContent = data.errors.phoneNumber;
+            }
+
+            if(data.user){
+                location.assign('/');
+            }
+
+        }
+        catch (err) {
+            console.log(err);
+        }  
+    });
+
+</script>
