@@ -11,8 +11,11 @@ const app = express();
 app.use(cors({ origin: "http://localhost:3000" }));
 const PORT = 8080;
 app.use(express.json({ limit: "50mb" }));
+
+//The cookie parser must be ALWAYS called before the router so the browser would be able to verify
+//the jwt, then route to the required page
+app.use(cookieParser()); 
 app.use(router);
-app.use(cookieParser());
 
 
 //view engine

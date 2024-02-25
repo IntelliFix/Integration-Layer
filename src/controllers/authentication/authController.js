@@ -7,6 +7,16 @@ const handleErrors = (err) => {
     console.log(err.message, err.code);
     let errors = {email: '', name: '', phoneNumber: '', password: ''};
 
+    //incorrect email at login
+    if (err.message === 'Incorrect Email') {
+        errors.email = "This email isn't registered";
+    }
+
+    //incorrect password at login
+    if (err.message === 'Incorrect Password') {
+        errors.password = "Incorrect Password";
+    }
+    
     //duplicates error code
     if (err.code === 11000) {
         errors.email = "That email is already registered";
@@ -60,8 +70,24 @@ module.exports.signup_post = async (req, res) => {
 
 module.exports.login_post = async (req, res) => {
     const{email, password} = req.body;
-    console.log(email, password);
     
-    res.send('user login');
+    try{
+        const user = await User.login(email, password);
+        const token = createToken(user._id);
+        res.cookie('jwt', token, {httpOnly: true, maxAge: maxAge * 1000});
+        res.status(200).json({user: user._id});
+    }
+    catch(err) {
+        const errors = handleErrors(err);
+        res.status(400).json({ errors });
+    }
 }
 
+
+//to logout, we should delete jwt from the browser, but that's not possible
+//so we just replace it with an empty string
+module.exports.logout_get = (req, res) => {
+    res.cookie('jwt', '', {maxAge: 1});
+    res.redirect('/');
+}
+ 
