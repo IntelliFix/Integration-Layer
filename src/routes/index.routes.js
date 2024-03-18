@@ -25,8 +25,8 @@ router.get("/login", login_get);
 router.post("/login", login_post);
 
 // Both code-fixer and chatbot routes have to be protected/authenticated routes
-router.post("/code-fixer", requireAuth, codeFixer);
-router.post("/chatbot", requireAuth, chatbot);
+router.post("/code-fixer", requireAuth, checkUser, codeFixer);
+router.post("/chatbot", requireAuth, checkUser, chatbot);
 
 router.get("/logout", requireAuth, logout_get);
 
