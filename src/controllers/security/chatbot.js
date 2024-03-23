@@ -4,6 +4,7 @@ const genAIServerUrl = require("../../../GenAI.url");
 
 const chatbot = async (req, res) => {
   try {
+    console.log(req.user.id);
     const response = await axios.post(genAIServerUrl + "/chatbot", {
       // Session id el mafrood negebha men el user logged in, + howa fe chat raqam kam
       // For now hane3taha men postman 3ady bas ba3d keda hatet7at hena

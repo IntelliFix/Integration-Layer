@@ -4,6 +4,8 @@ const User = require("../models/User");
 //To apply Access Control by protecting some routes
 const requireAuth = (req, res, next) => {
   const token = req.cookies.jwt;
+  // const token = req.headers
+  console.log(req.headers);
 
   //check if jwt exists and verify it
   if (token) {
@@ -24,7 +26,9 @@ const requireAuth = (req, res, next) => {
 //check current user and insert user email into the header for example, as a profile button
 //applied to every single GET request, in index.routes file
 const checkUser = (req, res, next) => {
-  const token = req.cookies.jwt;
+  // const token = req.cookies.jwt;
+  const token = req.headers.authorization;
+  console.log("Token: ", token);
 
   if (token) {
     jwt.verify(token, "thisisoursecret", async (err, decodedToken) => {
