@@ -3,8 +3,8 @@ const User = require("../models/User");
 
 //To apply Access Control by protecting some routes
 const requireAuth = (req, res, next) => {
-  const token = req.cookies.jwt;
-  // const token = req.headers
+  // const token = req.cookies.jwt;
+  const token = req.headers.authorization;
   console.log(req.headers);
 
   //check if jwt exists and verify it
