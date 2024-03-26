@@ -11,6 +11,9 @@ const app = express();
 app.use(
   cors({
     origin: [
+      "https://intellifix.firebaseapp.com",
+      "https://front-end-layer-pb5xmvfa7a-uc.a.run.app",
+      "https://intellifix.web.app",
       "http://localhost:3000",
       "https://arctic-acolyte-414610.uc.r.appspot.com",
     ],
