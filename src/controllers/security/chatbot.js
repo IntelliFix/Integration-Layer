@@ -17,8 +17,6 @@ const chatbot = async (req, res) => {
     // Check if promptResponse starts with "Yes it is safe to answer"
     if (promptContent.startsWith("Yes, it is safe to answer")){
       
-      console.log("PromptResponse starts with 'Yes, it is safe to answer'");
-
       //Send the request to the AI server where the main Chatbot model exists
       const response = await axios.post(genAIServerUrl + "/chatbot", {
         // Session id el mafrood negebha men el user logged in, + howa fe chat raqam kam
@@ -35,15 +33,11 @@ const chatbot = async (req, res) => {
     
     }else if (promptContent.startsWith("No, it is not safe to answer")){
       
-      console.log("PromptResponse starts with 'No, it is not safe to answer'");
-
       //Reply with Prompt_Injection, finetuned model's reponse
       res.status(200).json({ success: true, data: promptResponse.predictions[0].content });
 
     }
     else {
-      console.log("PromptResponse is UNexpected");
-
       // Handle other cases if needed
       // For example, if the promptResponse does not start with either expected string
             //Send the request to the AI server where the main Chatbot model exists
