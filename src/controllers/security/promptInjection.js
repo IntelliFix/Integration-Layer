@@ -19,6 +19,7 @@ async function getAccessToken() {
 }
 
 
+
 async function promptinjection(message) {
   try {
     const API_ENDPOINT = 'europe-west4-aiplatform.googleapis.com';
