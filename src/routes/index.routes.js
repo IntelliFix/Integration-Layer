@@ -29,8 +29,8 @@ router.post("/code-fixer", requireAuth, checkUser, codeFixer);
 
 
 //Don't forget to uncomment this line to check authroization on chatbot route
-router.post("/chatbot", requireAuth, checkUser, chatbot);
-// router.post("/chatbot", chatbot);
+// router.post("/chatbot", requireAuth, checkUser, chatbot);
+router.post("/chatbot", chatbot);
 
 
 router.get("/logout", requireAuth, logout_get);

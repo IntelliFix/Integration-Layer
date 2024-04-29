@@ -1,6 +1,23 @@
 const axios = require('axios');
 const fs = require('fs');
 require("dotenv").config(); // use the env variables
+const { promisify } = require('util');
+const exec = promisify(require('child_process').exec);
+
+async function getAccessToken() {
+  try {
+    // Run the gcloud command to get the access token
+    const { stdout, stderr } = await exec('gcloud auth print-access-token');
+    if (stderr) {
+      throw new Error(stderr);
+    }
+    return stdout.trim(); // Trim any whitespace from the output
+  } catch (error) {
+    console.error('Error fetching access token:', error);
+    throw error;
+  }
+}
+
 
 
 async function promptinjection(message) {
@@ -11,7 +28,11 @@ async function promptinjection(message) {
     const LOCATION_ID = 'europe-west4';
 
     // Generate access token using gcloud command-line tool
-    const accessToken = process.env.accessToken; 
+
+     // Generate or fetch access token
+     const accessToken = process.env.ACCESS_TOKEN === 'GENERATE_ON_RUNTIME'
+     ? await getAccessToken()
+     : process.env.ACCESS_TOKEN;
 
     // Read the JSON payload from the separate file, sanitize user input (message) and concatenate
     // the sanitized input to the prompt injection prompt
