@@ -6,12 +6,12 @@ const exec = promisify(require('child_process').exec);
 
 async function getAccessToken() {
   try {
-    // Run the gcloud command to get the access token
+    // Run the gcloud command to get the access token for authentication
     const { stdout, stderr } = await exec('gcloud auth print-access-token');
     if (stderr) {
       throw new Error(stderr);
     }
-    return stdout.trim(); // Trim any whitespace from the output
+    return stdout.trim(); 
   } catch (error) {
     console.error('Error fetching access token:', error);
     throw error;
@@ -22,13 +22,11 @@ async function getAccessToken() {
 
 async function promptinjection(message) {
   try {
-    const API_ENDPOINT = 'europe-west4-aiplatform.googleapis.com';
-    const PROJECT_ID = '457785005814';
-    const ENDPOINT_ID = '4433147320309121024';
-    const LOCATION_ID = 'europe-west4';
+    const API_ENDPOINT="europe-west4-aiplatform.googleapis.com"
+    const PROJECT_ID="977448003671"
+    const ENDPOINT_ID="4885996577371455488"
+    const LOCATION_ID="europe-west4"
 
-    // Generate access token using gcloud command-line tool
-    // const accessToken = await getAccessToken();
     
     // Generate or fetch access token
     const accessToken = process.env.ACCESS_TOKEN === 'GENERATE_ON_RUNTIME'
